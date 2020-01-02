@@ -15,7 +15,7 @@ from iothub_client import IoTHubClient, IoTHubClientError, IoTHubTransportProvid
 from iothub_client import IoTHubMessage, IoTHubMessageDispositionResult, IoTHubError, DeviceMethodReturnValue
 
 # The device connection string to authenticate the device with your IoT hub.
-CONNECTION_STRING = "HostName=Toradex-test-hub.azure-devices.net;DeviceId=colibri-imx8x;SharedAccessKey=s8yOxxvXbYKzQLPVl4B1i9COORghypdR3+lyzvNoSdM="
+CONNECTION_STRING = os.getenv("CONNECTION_STRING")
 
 # Using the MQTT protocol.
 PROTOCOL = IoTHubTransportProvider.MQTT

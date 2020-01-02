@@ -14,7 +14,7 @@ import time
 
 # Azure IoT Hub
 URI = 'Toradex-test-hub.azure-devices.net'
-KEY = '2dd9JTH5NO0baFz/5SCheiyl9/Ub7xSsnuo608cL6Uw='
+KEY = '---YOUR-KEY---'
 IOT_DEVICE_ID = 'colibri-imx8x'
 POLICY = 'iothubowner'
 
