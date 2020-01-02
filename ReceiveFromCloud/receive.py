@@ -43,8 +43,9 @@ async def main():
                 print("Quitting...")
                 break
 
+    listener = asyncio.get_event_loop()
     # Schedule task for message listener
-    asyncio.create_task(message_listener(device_client))
+    listener.create_task(message_listener(device_client))
 
     # Run the stdin listener in the event loop
     Loop = asyncio.get_running_loop()
