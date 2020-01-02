@@ -48,8 +48,8 @@ async def main():
     listener.create_task(message_listener(device_client))
 
     # Run the stdin listener in the event loop
-    Loop = asyncio.get_running_loop()
-    user_finished = Loop.run_in_executor(None, stdin_listener)
+    # Loop = asyncio.get_running_loop()
+    user_finished = listener.run_in_executor(None, stdin_listener)
 
     # Wait for user to indicate they are done listening for messages
     await user_finished
