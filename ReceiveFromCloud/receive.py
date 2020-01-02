@@ -19,7 +19,7 @@ from azure.iot.device.aio import IoTHubDeviceClient
 
 async def main():
     # The connection string for a device should never be stored in code. For the sake of simplicity we're using an environment variable here.
-    conn_str = "HostName=Toradex-test-hub.azure-devices.net;DeviceId=colibri-imx8x;SharedAccessKey=s8yOxxvXbYKzQLPVl4B1i9COORghypdR3+lyzvNoSdM="
+    conn_str = os.getenv("CONNECTION_STRING")
     # The client object is used to interact with your Azure IoT hub.
     device_client = IoTHubDeviceClient.create_from_connection_string(conn_str)
 
