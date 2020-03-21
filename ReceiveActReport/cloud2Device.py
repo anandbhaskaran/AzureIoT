@@ -33,16 +33,16 @@ async def main():
     # define behavior for receiving a message
     async def message_listener(device_client):
         
-        export_file2 = "/sys/class/gpio/export"
-        f = io.open(export_file2, "w")         
-        f.write("407")                
-        f.close()     
+        # export_file2 = "/sys/class/gpio/export"
+        # f = io.open(export_file2, "w")         
+        # f.write("407")                
+        # f.close()     
          
-        time.sleep(1)
-        export_file3 = "/sys/class/gpio/gpio407/direction"
-        f = io.open(export_file3, "w")                    
-        f.write("out")                
-        f.close()
+        # time.sleep(1)
+        # export_file3 = "/sys/class/gpio/gpio407/direction"
+        # f = io.open(export_file3, "w")                    
+        # f.write("out")                
+        # f.close()
         print("I am in device_client")
         
         print("Enter start to get the LEDs blinking  ")
@@ -91,7 +91,7 @@ async def main():
                 f.write("407")
                 print("Quitting...")
                 break
-    listener = asyncio.get_event_loop(0)
+    listener = asyncio.get_event_loop()
     # Schedule task for message listener
     listener.create_task(message_listener(device_client))
 
