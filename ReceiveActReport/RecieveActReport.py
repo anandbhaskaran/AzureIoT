@@ -99,6 +99,7 @@ async def main():
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
+    loop.stop()
     loop.close()
     #Blinking_LED.py part: Unexport the pin
     export_file2 = "/sys/class/gpio/unexport"
