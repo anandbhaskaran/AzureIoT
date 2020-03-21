@@ -60,19 +60,19 @@ async def main():
                 # f = io.open(export_file, "w")                
                 # f.write("1")    
                 # f.close()
-                sender.create_task(send_test_message(1))                    
+                send_test_message(1)                    
                 time.sleep(0.5)
                       
                 # export_file = "/sys/class/gpio/gpio407/value"
                 # f = io.open(export_file, "w")                
                 # f.write("0")                 
                 # f.close()
-                sender.create_task(send_test_message(0))                   
+                send_test_message(0)                  
                 time.sleep(0.5)
         else:
             print("Unknown Data received. Received Data = " + message.data)
     
-    async def send_test_message(i):
+    def send_test_message(i):
         print("sending message" + str(i))
         msg = Message("{ \"state\": " + str(i) + "}")
         msg.message_id = uuid.uuid4()
