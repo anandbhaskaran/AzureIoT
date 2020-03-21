@@ -59,25 +59,23 @@ async def main():
                 # f = io.open(export_file, "w")                
                 # f.write("1")    
                 # f.close()
-                send_test_message(1)         
+                print("sending message 1 ")
+                message = { "state": "1" }
+                await device_client.send_message(message)
+                print("done sending message #1")      
                 time.sleep(0.5)
                       
                 # export_file = "/sys/class/gpio/gpio407/value"
                 # f = io.open(export_file, "w")                
                 # f.write("0")                 
                 # f.close()
-                send_test_message(0)                
+                print("sending message 0 ")
+                message = { "state": "0" }
+                await device_client.send_message(message)
+                print("done sending message #0")                     
                 time.sleep(0.5)
         else:
             print("Unknown Data received. Received Data = " + message.data)
-    
-    def send_test_message(i):
-        print("sending message" + str(i))
-        msg = Message("{ \"state\": " + str(i) + "}")
-        msg.message_id = uuid.uuid4()
-        msg.correlation_id = "correlation-1234"
-        device_client.send_message(msg)
-        print("done sending message #" + str(i))
 
     # define behavior for halting the application
     def stdin_listener():
