@@ -48,7 +48,6 @@ async def main():
         print("Enter start to get the LEDs blinking  ")
         message = await device_client.receive_message()  # blocking call
         print(message.data.decode("utf-8") )
-        msg = message.data.decode("utf-8").lower()
 
         if(message.data.decode("utf-8").lower()  == "Start".lower()):      
             print("Blinking LED")     
@@ -72,19 +71,23 @@ async def main():
                 await device_client.send_message(message)              
                 time.sleep(0.5)
         else:
-            print("Unknown Data received. Received Data = %s" % message.data)
+            print("Unknown Data received. Received Data = %s" % message.data.decode("utf-8"))
 
     # define behavior for halting the application
     def stdin_listener():
         while True:
             selection = input("Press Q to quit\n")
             if selection == "Q" or selection == "q":
+                listener = asyncio.get_event_loop()
+                listener.stop()
+                listener.close()
                 #Blinking_LED.py part: Unexport the pin
                 export_file2 = "/sys/class/gpio/unexport"
                 f = io.open(export_file2, "w")           
                 f.write("407")
                 print("Quitting...")
                 break
+            
     listener = asyncio.get_event_loop()
     # Schedule task for message listener
     listener.create_task(message_listener(device_client))
