@@ -66,17 +66,17 @@ async def main():
                 # f = io.open(export_file, "w")                
                 # f.write("0")                 
                 # f.close()
-                send_test_message(0)           
+                send_test_message(0)                
                 time.sleep(0.5)
         else:
             print("Unknown Data received. Received Data = " + message.data)
     
-    async def send_test_message(i):
+    def send_test_message(i):
         print("sending message" + str(i))
         msg = Message("{ \"state\": " + str(i) + "}")
         msg.message_id = uuid.uuid4()
         msg.correlation_id = "correlation-1234"
-        await device_client.send_message(msg)
+        device_client.send_message(msg)
         print("done sending message #" + str(i))
 
     # define behavior for halting the application
