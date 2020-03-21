@@ -13,10 +13,12 @@
 import os
 import io
 import time
+import uuid
 import asyncio
 from six.moves import input
 import threading
 from azure.iot.device.aio import IoTHubDeviceClient
+from azure.iot.device import Message
 
 
 async def main():
@@ -43,27 +45,40 @@ async def main():
         f.close()
         print("I am in device_client")
         
-        
-        message = await device_client.receive_message()  # blocking call
         print("Enter start to get the LEDs blinking  ")
-        print(message.data)
+        message = await device_client.receive_message()  # blocking call
+        print(message.data.decode("utf-8") )
 
-        if(message.data == "Start" or "start" or "START" or "sTART"):            
+        print("Check:" + message.data.decode("utf-8").lower()  == "Start".lower())
+
+        if(message.data.decode("utf-8").lower()  == "Start".lower()):      
+            print("Blinking LED")     
+            sender = asyncio.get_event_loop() 
             while True:
                 # Blinking_LED.py part
-                export_file = "/sys/class/gpio/gpio407/value"
-                f = io.open(export_file, "w")                
-                f.write("1")                 
-                f.close()                    
+                # export_file = "/sys/class/gpio/gpio407/value"
+                # f = io.open(export_file, "w")                
+                # f.write("1")    
+                # f.close()
+                sender.create_task(send_test_message(1))                    
                 time.sleep(0.5)
                       
-                export_file = "/sys/class/gpio/gpio407/value"
-                f = io.open(export_file, "w")                
-                f.write("0")                 
-                f.close()                
+                # export_file = "/sys/class/gpio/gpio407/value"
+                # f = io.open(export_file, "w")                
+                # f.write("0")                 
+                # f.close()
+                sender.create_task(send_test_message(0))                   
                 time.sleep(0.5)
         else:
             print("Unknown Data received. Received Data = " + message.data)
+    
+    async def send_test_message(i):
+        print("sending message" + str(i))
+        msg = Message("{ \"state\": " + str(i) + "}")
+        msg.message_id = uuid.uuid4()
+        msg.correlation_id = "correlation-1234"
+        await device_client.send_message(msg)
+        print("done sending message #" + str(i))
 
     # define behavior for halting the application
     def stdin_listener():
@@ -76,7 +91,7 @@ async def main():
                 f.write("407")
                 print("Quitting...")
                 break
-    listener = asyncio.get_event_loop()
+    listener = asyncio.get_event_loop(0)
     # Schedule task for message listener
     listener.create_task(message_listener(device_client))
 
