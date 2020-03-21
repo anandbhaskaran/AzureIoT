@@ -48,8 +48,9 @@ async def main():
         print("Enter start to get the LEDs blinking  ")
         message = await device_client.receive_message()  # blocking call
         print(message.data.decode("utf-8") )
+        msg = message.data.decode("utf-8").lower()
 
-        print("Check:" + message.data.decode("utf-8").lower()  == "Start".lower())
+        print("Check: %s" % (msg  == "Start".lower()))
 
         if(message.data.decode("utf-8").lower()  == "Start".lower()):      
             print("Blinking LED")     
