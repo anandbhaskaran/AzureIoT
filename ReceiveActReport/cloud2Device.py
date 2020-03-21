@@ -78,7 +78,7 @@ async def main():
                 print("done sending message #0")                     
                 time.sleep(0.5)
         else:
-            print("Unknown Data received. Received Data = " + message.data)
+            print("Unknown Data received. Received Data = %s" % message.data)
 
     # define behavior for halting the application
     def stdin_listener():
