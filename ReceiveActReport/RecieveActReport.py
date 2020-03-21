@@ -78,9 +78,6 @@ async def main():
         while True:
             selection = input("Press Q to quit\n")
             if selection == "Q" or selection == "q":
-                loop = asyncio.get_event_loop()
-                if(loop.is_running()):
-                    listener.stop()
                 break
                 
 
