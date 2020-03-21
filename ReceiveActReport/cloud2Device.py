@@ -33,16 +33,16 @@ async def main():
     # define behavior for receiving a message
     async def message_listener(device_client):
         
-        # export_file2 = "/sys/class/gpio/export"
-        # f = io.open(export_file2, "w")         
-        # f.write("407")                
-        # f.close()     
+        export_file2 = "/sys/class/gpio/export"
+        f = io.open(export_file2, "w")         
+        f.write("407")                
+        f.close()     
          
-        # time.sleep(1)
-        # export_file3 = "/sys/class/gpio/gpio407/direction"
-        # f = io.open(export_file3, "w")                    
-        # f.write("out")                
-        # f.close()
+        time.sleep(1)
+        export_file3 = "/sys/class/gpio/gpio407/direction"
+        f = io.open(export_file3, "w")                    
+        f.write("out")                
+        f.close()
         print("I am in device_client")
         
         print("Enter start to get the LEDs blinking  ")
@@ -50,32 +50,26 @@ async def main():
         print(message.data.decode("utf-8") )
         msg = message.data.decode("utf-8").lower()
 
-        print("Check: %s" % (msg  == "Start".lower()))
-
         if(message.data.decode("utf-8").lower()  == "Start".lower()):      
             print("Blinking LED")     
             while True:
                 # Blinking_LED.py part
-                # export_file = "/sys/class/gpio/gpio407/value"
-                # f = io.open(export_file, "w")                
-                # f.write("1")    
-                # f.close()
-                print("sending message 1 ")
+                export_file = "/sys/class/gpio/gpio407/value"
+                f = io.open(export_file, "w")                
+                f.write("1")    
+                f.close()
                 message = Message("{ \"state\": \"1\" }")
                 message.message_id = uuid.uuid4()
                 await device_client.send_message(message)
-                print("done sending message #1")      
                 time.sleep(0.5)
                       
-                # export_file = "/sys/class/gpio/gpio407/value"
-                # f = io.open(export_file, "w")                
-                # f.write("0")                 
-                # f.close()
-                print("sending message 0 ")
+                export_file = "/sys/class/gpio/gpio407/value"
+                f = io.open(export_file, "w")                
+                f.write("0")                 
+                f.close()
                 message = Message("{ \"state\": \"0\" }")
                 message.message_id = uuid.uuid4()
-                await device_client.send_message(message)
-                print("done sending message #0")                     
+                await device_client.send_message(message)              
                 time.sleep(0.5)
         else:
             print("Unknown Data received. Received Data = %s" % message.data)
