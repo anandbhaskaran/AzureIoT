@@ -78,7 +78,7 @@ async def main():
         while True:
             selection = input("Press Q to quit\n")
             if selection == "Q" or selection == "q":
-                listener = asyncio.get_event_loop()
+                listener = asyncio.get_running_loop()
                 listener.stop()
                 listener.close()
                 #Blinking_LED.py part: Unexport the pin
@@ -87,7 +87,7 @@ async def main():
                 f.write("407")
                 print("Quitting...")
                 break
-            
+
     listener = asyncio.get_event_loop()
     # Schedule task for message listener
     listener.create_task(message_listener(device_client))
