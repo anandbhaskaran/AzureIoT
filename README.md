@@ -20,4 +20,4 @@ Issue the following command to initiate the action:
 3. Report the LED State back to the cloud
 
 Debug Command (Cross check the recieved messages in Azure CLI)
-az iot hub monitor-events --hub-name Toradex-test-hub --output table
+`az iot hub monitor-events --hub-name Toradex-test-hub --output table`
