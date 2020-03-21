@@ -61,7 +61,8 @@ async def main():
                 # f.write("1")    
                 # f.close()
                 print("sending message 1 ")
-                message = { "state": "1" }
+                message = Message("{ \"state\": \"1\" }")
+                msg.message_id = uuid.uuid4()
                 await device_client.send_message(message)
                 print("done sending message #1")      
                 time.sleep(0.5)
@@ -71,7 +72,8 @@ async def main():
                 # f.write("0")                 
                 # f.close()
                 print("sending message 0 ")
-                message = { "state": "0" }
+                message = Message("{ \"state\": \"0\" }")
+                msg.message_id = uuid.uuid4()
                 await device_client.send_message(message)
                 print("done sending message #0")                     
                 time.sleep(0.5)
