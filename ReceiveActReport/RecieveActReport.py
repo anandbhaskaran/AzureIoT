@@ -99,12 +99,17 @@ async def main():
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
-    for task in asyncio.Task.all_tasks():
-        task.cancel()
-    loop.stop()
-    loop.close()
-    #Blinking_LED.py part: Unexport the pin
-    export_file2 = "/sys/class/gpio/unexport"
-    f = io.open(export_file2, "w")           
-    f.write("407")
-    print("Quitting...")
+    try:
+        for task in asyncio.Task.all_tasks():
+            task.cancel()
+        loop.stop()
+        loop.close()
+    except Exception as e:
+        print("Quitting Azure Services")
+    finally:
+        #Blinking_LED.py part: Unexport the pin
+        export_file2 = "/sys/class/gpio/unexport"
+        f = io.open(export_file2, "w")           
+        f.write("407")
+        print("Caio from Janani!")
+        
