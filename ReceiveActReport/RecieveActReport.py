@@ -78,15 +78,11 @@ async def main():
         while True:
             selection = input("Press Q to quit\n")
             if selection == "Q" or selection == "q":
-                listener = asyncio.get_running_loop()
-                listener.stop()
-                listener.close()
-                #Blinking_LED.py part: Unexport the pin
-                export_file2 = "/sys/class/gpio/unexport"
-                f = io.open(export_file2, "w")           
-                f.write("407")
-                print("Quitting...")
+                loop = asyncio.get_event_loop()
+                if(loop.is_running()):
+                    listener.stop()
                 break
+                
 
     listener = asyncio.get_event_loop()
     # Schedule task for message listener
@@ -107,3 +103,8 @@ if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
     loop.close()
+    #Blinking_LED.py part: Unexport the pin
+    export_file2 = "/sys/class/gpio/unexport"
+    f = io.open(export_file2, "w")           
+    f.write("407")
+    print("Quitting...")
