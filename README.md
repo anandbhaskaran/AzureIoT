@@ -6,7 +6,7 @@ This repo contains working examples for Azure IOT communication.
 This will send the message to cloud using Python
 
 ## 2. Recive from Cloud   
-THis will recieve messages that are triggered in the Azure IOT 
+This will recieve messages that are triggered in the Azure IOT 
 
 ## 3. Web Apps Node IOT Hub
 A cloned repo that helps us to monitor the messages sent to cloud
