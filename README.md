@@ -1,6 +1,7 @@
 # Azure IOT 
-
 This repo contains working examples for Azure IOT communication.
+Prerequesite: Connection String
+Enable IOT Hub in Azure: `az extension add --name azure-cli-iot-ext `
 
 ## 1. Send To Cloud
 This will send the message to cloud using Python
