@@ -23,7 +23,8 @@ from azure.iot.device import Message
 
 async def main():
     # Though the Conn string is always recommended to rx from teh Env. for convenience sake, wee enter here.
-    conn_str = "HostName=Toradex-test-hub.azure-devices.net;DeviceId=colibri-imx8x;SharedAccessKey=s8yOxxvXbYKzQLPVl4B1i9COORghypdR3+lyzvNoSdM="
+    conn_str = input("Enter connection string: ")
+    # conn_str = ""
     # The client object is used to interact with your Azure IoT hub.
     device_client = IoTHubDeviceClient.create_from_connection_string(conn_str)
 
@@ -50,7 +51,8 @@ async def main():
         print(message.data.decode("utf-8") )
 
         if(message.data.decode("utf-8").lower()  == "Start".lower()):      
-            print("Blinking LED")     
+            print("Blinking LED.")     
+            print("Sending LED State to Azure and this can also be visuvalized on the web app.")     
             while True:
                 # Blinking_LED.py part
                 export_file = "/sys/class/gpio/gpio407/value"
